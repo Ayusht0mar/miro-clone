@@ -20,6 +20,10 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  boards      Board[]  @relation("BoardOwner")
+  memberships BoardMember[]
+  createdStickyNotes StickyNote[] @relation("UserCreatedStickyNotes")
+
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -64,3 +68,47 @@ model VerificationToken {
   @@id([identifier, token])
 }
  
+
+ model Board {
+  id          String        @id @default(cuid())
+  title       String
+  description String?
+  ownerId     String
+  owner       User          @relation("BoardOwner", fields: [ownerId], references: [id])
+  members     BoardMember[]
+  stickyNotes StickyNote[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model BoardMember {
+  id        String   @id @default(cuid())
+  userId    String
+  boardId   String
+  user      User     @relation(fields: [userId], references: [id])
+  board     Board    @relation(fields: [boardId], references: [id])
+  role      Role     @default(VIEWER)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, boardId])
+}
+
+model StickyNote {
+  id        String   @id @default(cuid())
+  content   String?
+  color     String   @default("yellow")
+  positionX Float    @default(0)
+  positionY Float    @default(0)
+  boardId   String
+  board     Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  createdBy String
+  creator   User     @relation("UserCreatedStickyNotes", fields: [createdBy], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  OWNER
+  EDITOR
+  VIEWER
+}
