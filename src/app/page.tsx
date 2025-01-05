@@ -1,4 +1,3 @@
-import { SignIn } from "@/components/auth/SignInButton";
 import { SignOut } from "@/components/auth/SignOutButton";
 import Image from "next/image";
 
