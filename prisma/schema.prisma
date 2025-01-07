@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,7 +8,6 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-
 model User {
   id            String          @id @default(cuid())
   name          String?
@@ -20,10 +16,10 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  boards      Board[]  @relation("BoardOwner")
-  memberships BoardMember[]
+  boards        Board[]  @relation("BoardOwner")
+  widgets     Widget[]
+  memberships   BoardMember[]
   createdStickyNotes StickyNote[] @relation("UserCreatedStickyNotes")
-
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -69,7 +65,7 @@ model VerificationToken {
 }
  
 
- model Board {
+model Board {
   id          String        @id @default(cuid())
   title       String
   description String?
@@ -77,6 +73,7 @@ model VerificationToken {
   owner       User          @relation("BoardOwner", fields: [ownerId], references: [id])
   members     BoardMember[]
   stickyNotes StickyNote[]
+  widgets     Widget[]
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 }
@@ -105,6 +102,29 @@ model StickyNote {
   creator   User     @relation("UserCreatedStickyNotes", fields: [createdBy], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Widget {
+  id        String   @id @default(cuid())
+  type      WidgetType
+  data      Json     // Store properties specific to the widget type
+  positionX Float    @default(0)
+  positionY Float    @default(0)
+  boardId   String
+  board     Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  createdBy String
+  creator   User     @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum WidgetType {
+  SHAPE
+  LINE
+  TEXT
+  IMAGE
+  STICKY_NOTE
+  OTHER
 }
 
 enum Role {
