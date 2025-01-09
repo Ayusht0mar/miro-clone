@@ -20,12 +20,11 @@ export default function Home() {
           />
         </div>
         <div>
-          <a href="/signin" className="text-white bg-blue-500 px-4 py-2 rounded-lg font-semibold">   
+          <a href="/signin" className="text-white bg-blue-500 px-4 py-2 rounded-lg">   
               Sign in
           </a>
         </div>
       </div>
-<SignOut/>
     </div>
   );
 }
