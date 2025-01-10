@@ -1,6 +1,6 @@
 "use client";
 
-import { Minus, MousePointer2, Plus, Redo, StickyNote, Type, Undo, Pen, Circle, Square } from "lucide-react";
+import { Minus, MousePointer2, Plus, Redo, StickyNote, Type, Undo, Circle, Square } from "lucide-react";
 import { useState, useRef } from "react";
 import { Rnd } from "react-rnd";
 import { v4 as uuidv4 } from "uuid";
@@ -11,10 +11,9 @@ interface CanvasElement {
   y: number;
   width: number;
   height: number;
-  type: "rectangle" | "text" | "stickyNote" | "circle" | "pen";
+  type: "rectangle" | "text" | "stickyNote" | "circle" ;
   content?: string;
   color?: string;
-  path?: { x: number; y: number }[]; // For pen tool
 }
 
 type Tool = "select" | "pen" | "shapes" | "text" | "stickyNote" | "circle";
@@ -28,7 +27,6 @@ export default function CanvasPage() {
   const [zoomLevel, setZoomLevel] = useState<number>(1);
 
   const canvasRef = useRef<HTMLDivElement>(null);
-  const drawingPath = useRef<{ x: number; y: number }[]>([]);
 
   const saveHistory = (newElements: CanvasElement[]) => {
     const updatedHistory = [...history.slice(0, currentStep + 1), newElements];
@@ -114,59 +112,7 @@ export default function CanvasPage() {
     saveHistory(updatedElements);
     setActiveTool("select");
   };
-
-  const handlePen = () => {
-
-  }
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (activeTool === "pen") {
-      const rect = canvasRef.current!.getBoundingClientRect();
-      const startX = e.clientX - rect.left;
-      const startY = e.clientY - rect.top;
-      drawingPath.current = [{ x: startX, y: startY }];
-    }
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (activeTool === "pen" && drawingPath.current.length) {
-      const rect = canvasRef.current!.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      drawingPath.current.push({ x, y });
-
-      const newPenElement: CanvasElement = {
-        id: uuidv4(),
-        type: "pen",
-        x: 0,
-        y: 0,
-        width: 0,
-        height: 0,
-        path: [...drawingPath.current],
-        color: "#000",
-      };
-      setElements((prev) => [...prev.filter((el) => el.type !== "pen"), newPenElement]);
-    }
-  };
-
-  const handleMouseUp = () => {
-    if (activeTool === "pen" && drawingPath.current.length) {
-      const newPenElement: CanvasElement = {
-        id: uuidv4(),
-        type: "pen",
-        x: 0,
-        y: 0,
-        width: 0,
-        height: 0,
-        path: [...drawingPath.current],
-        color: "#000",
-      };
-      const updatedElements = [...elements, newPenElement];
-      setElements(updatedElements);
-      saveHistory(updatedElements);
-      drawingPath.current = [];
-    }
-  };
+  
 
     const updateElement = (id: string, updatedProps: Partial<CanvasElement>) => {
         setElements((prevElements) =>
@@ -230,13 +176,6 @@ export default function CanvasPage() {
         >
           <StickyNote />
         </button>
-        <button
-          onClick={handlePen}
-          className={`p-2 rounded ${activeTool === "stickyNote" ? "bg-blue-600 text-white" : "bg-gray-200"}`}
-          title="Sticky Note Tool"
-        >
-          <Pen />
-        </button>
         <button onClick={undo} className="p-2 rounded bg-gray-200 hover:bg-gray-300" title="Undo">
           <Undo />
         </button>
@@ -259,9 +198,6 @@ export default function CanvasPage() {
           transform: `scale(${zoomLevel})`,
           transformOrigin: "0 0",
         }}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
       >
         {elements.map((element) => (
           <Rnd
@@ -295,16 +231,6 @@ export default function CanvasPage() {
                 style={{ backgroundColor: element.color }}
               ></div>
             )}
-            {element.type === "pen" && (
-              <svg className="absolute top-0 left-0" style={{ pointerEvents: "none" }}>
-                <polyline
-                  points={element.path?.map((p) => `${p.x},${p.y}`).join(" ") || ""}
-                  fill="none"
-                  stroke={element.color || "#000"}
-                  strokeWidth="2"
-                />
-              </svg>
-            )}
             {element.type === "text" && (
               <div
                 onDoubleClick={() => handleDoubleClick(element.id)}
@@ -315,7 +241,7 @@ export default function CanvasPage() {
             )}
             {element.type === "stickyNote" && (
               <div
-                className="p-4 text-sm font-medium"
+                className="p-4 text-sm font-medium h-full"
                 style={{ backgroundColor: element.color }}
                 onDoubleClick={() => handleDoubleClick(element.id)}
               >
