@@ -14,7 +14,7 @@ async function BoardInfo ({ boardId }: BoardInfoProps) {
 
 
     return ( 
-        <div className="absolute top-2 left-2 bg-white rounded px-3 py-2 flex items-baseline shadow-md">
+        <div className="absolute top-2 left-2 bg-white rounded px-3 py-2 flex items-baseline shadow-md z-50">
 
                 <Link href="/" className="flex gap-2">              
                     <Image
