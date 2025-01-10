@@ -2,6 +2,8 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import Canvas from "./_components/Canvas";
 import { Room } from "./_components/Room";
+import BoardInfo from "./_components/BoardInfo";
+import Participants from "./_components/Participants";
 
 interface BoardIdPageProps {
     params: Promise<{ boardId: string }>;
@@ -23,7 +25,9 @@ interface BoardIdPageProps {
     return (
       <main>
         <Room roomId={boardId}>
-          <Canvas boardId={boardId} />
+          <BoardInfo boardId={boardId}/>
+          <Participants/>
+          <Canvas />
         </Room>
       </main>
     );
