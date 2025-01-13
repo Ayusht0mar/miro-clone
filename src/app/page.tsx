@@ -1,9 +1,14 @@
+import Features from "@/components/home/Features";
+import Footer from "@/components/home/Footer";
+import Hero from "@/components/home/Hero";
+import Pricing from "@/components/home/Pricing";
+import Testimonials from "@/components/home/Testimonials";
 import Image from "next/image";
 
 export default function Home() {
   return (
     <div className="pt-6">
-      <div className="bg-white mx-auto w-[92vw] p-4 rounded-xl flex justify-between items-center shadow-lg ">
+      <div className="bg-white mx-auto w-[92vw] max-w-screen-2xl p-4 rounded-xl flex justify-between items-center shadow-lg ">
         <div className="flex gap-4 items-center">
           <Image
             src={"/images/mirosymbol.svg"}
@@ -24,6 +29,11 @@ export default function Home() {
           </a>
         </div>
       </div>
+      <Hero/>
+      <Features/>
+      <Testimonials/>
+      <Pricing/>
+      <Footer/>
     </div>
   );
 }
