@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Miro Clone
 
-## Getting Started
+## Overview
+Miro Clone is a collaborative online whiteboard platform designed for teams to ideate, brainstorm, and collaborate visually. This application replicates core functionalities of Miro, offering users a seamless experience for creating and managing boards, sticky notes, shapes, text, and other visual elements.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **User Authentication**
+  - Secure login and registration.
+  - Integration with Auth.js and Prisma.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Collaborative Boards**
+  - Create, edit, and delete boards.
+  - Real-time updates for multiple users.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Canvas Tools**
+  - Select, pen, shapes, text, and sticky notes.
+  - Zoom in/out and pan the canvas.
+  - Group, ungroup, and layer elements.
 
-## Learn More
+- **Undo/Redo Functionality**
+  - Support for multiple history states to undo or redo actions.
 
-To learn more about Next.js, take a look at the following resources:
+- **Responsive Design**
+  - Optimized for desktops, tablets, and mobile devices using Tailwind CSS.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Performance Optimization**
+  - Efficient rendering of large boards.
+  - Backend operations powered by Prisma and PostgreSQL.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Frontend
+- **Next.js**: Framework for server-rendered React applications.
+- **TypeScript**: Static typing for better code reliability.
+- **Tailwind CSS**: For styling the application.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Backend
+- **Prisma**: Database ORM for seamless database interactions.
+- **PostgreSQL**: Relational database for storing user and board data.
+- **Auth.js**: User authentication and session management.
+
+### Deployment
+- **Vercel**: Hosting the application.
+- **Supabase**: Database hosting.
+
+---
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Ayusht0mar/miro-clone.git
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd miro-clone
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Set up environment variables:
+   - Create a `.env` file in the root directory.
+   - Add the following variables:
+     ```env
+     DATABASE_URL=
+     DIRECT_URL=
+     AUTH_SECRET=
+     AUTH_GOOGLE_ID=
+     AUTH_GOOGLE_SECRET=
+     AUTH_GITHUB_ID=
+     AUTH_GITHUB_SECRET
+     ```
+
+5. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## Usage
+
+1. Register or log in to the application.
+2. Create a new board or select an existing one.
+3. Use the toolbar to add elements like sticky notes, shapes, or text.
+4. Collaborate in real-time with team members.
+5. Save changes and manage boards through the dashboard.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
