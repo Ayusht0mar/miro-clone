@@ -30,7 +30,7 @@ export default function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <Card key={index} className="flex flex-col justify-between bg-white">
               <CardContent className="pt-6">
-                <p className="text-gray-600 italic mb-4">"{testimonial.quote}"</p>
+                <p className="text-gray-600 italic mb-4">&quot;{testimonial.quote}&quot;</p>
               </CardContent>
               <CardFooter className="flex items-center space-x-4">
                 <div>

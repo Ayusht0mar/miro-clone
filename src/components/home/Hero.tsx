@@ -9,7 +9,7 @@ export default function Hero() {
             Collaborate visually with MiroClone
           </h1>
           <p className="text-xl text-gray-600 mb-8">
-            Bring your team's ideas to life with our infinite canvas. Plan, brainstorm, and organize like never before.
+            Bring your team&apos;s ideas to life with our infinite canvas. Plan, brainstorm, and organize like never before.
           </p>
           <div className="flex space-x-4">
             <a href="/signin">
