@@ -18,17 +18,20 @@ export default async function DashboardPage() {
 
     return ( 
         <div className="flex">
-            <DashboardSidebar/>
+                <DashboardSidebar/>
             <div className="w-full">
                 <DashboardNavbar/>
-                <div className="p-6 grid grid-cols-6 gap-4">
+                <div className="p-6 grid grid-cols-3 lg:grid-cols-6 gap-4">
 
                     <CreateBoard/>
                     {boards.map((board) => (
-                        <div key={board.id} className="bg-white">
+                        <div key={board.id} >
                             <a href={`/board/${board.id}/`}>
-                                <h3>{board.title}</h3>
-                                <p>{board.description}</p>
+                                <div className="bg-white aspect-square rounded-lg border"/>
+                                <div className="p-2">
+                                    <h3 className="font-semibold ">{board.title}</h3>
+                                    <p className="text-sm">{board.description}</p>
+                                </div>
                             </a>
                         </div>
                     ))}
