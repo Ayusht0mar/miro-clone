@@ -138,7 +138,7 @@ export default function CanvasPage() {
     }
 
   return (
-    <div className="h-full w-full min-w-[100vw] min-h-screen bg-gray-100 flex flex-col">
+    <div className="h-full w-full min-w-[100vw] min-h-screen flex flex-col">
       {/* Toolbar */}
       <div className="bg-white shadow absolute z-50 top-[50%] -translate-y-[50%] left-2 rounded p-1.5 flex flex-col gap-4 items-center">
         <button
